@@ -3,12 +3,12 @@ import "./styles.css";
 
 interface Props {
     toDo: string;
-    setToDo: React.Dispatch<React.SetStateAction<string>>
-
+    setToDo: React.Dispatch<React.SetStateAction<string>>;
+    addToList: (e: React.FormEvent) => void;
 }
 
-const InputField = ({ toDo, setToDo }: Props) => {
-  return <form className="input">
+const InputField = ({ toDo, setToDo, addToList }: Props) => {
+  return <form className="input" onSubmit={addToList}>
     <input type="input"
         value={toDo}
         onChange={
