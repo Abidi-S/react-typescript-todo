@@ -25,6 +25,9 @@ const App: React.FC = () => {
     <div className="App">
       <span className="heading">Taskify</span>
       <InputField toDo={toDo} setToDo={setToDo} addToList={addToList} />
+      {toDoList.map((t) => (
+        <li>{t.toDo}</li>
+      ))}
     </div>
   );
 }
