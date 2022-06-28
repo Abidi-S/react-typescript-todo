@@ -3,6 +3,7 @@ import { ToDo } from '../model';
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { MdDoneOutline } from "react-icons/md";
 import './styles.css';
+import ToDoListCard from './ToDoListCard';
 type Props = {
     toDo: ToDo;
     toDoList: ToDo[];
@@ -10,11 +11,20 @@ type Props = {
 }
 
 const SingleToDo = ({ toDo, toDoList, setToDoList }: Props) => {
+    const handleDone = (id: number) => {
+        setToDoList(toDoList.map((toDo)=>toDo.id===id?{...toDo, isDone:!toDo.isDone}:toDo))
+    };
+
   return (
     <form className="toDoList_single">
-        <span className="toDoList_single-text">
-            {toDo.toDo}
-        </span>
+        {
+            toDo.isDone ? (
+                <s className="toDoList_single-text">{toDo.toDo}</s>
+            ) : (
+                <span className="toDoList_single-text">{toDo.toDo}</span>
+            )
+        }
+
         <div>
             <span className='icon'>
                 <AiOutlineEdit />
@@ -22,7 +32,7 @@ const SingleToDo = ({ toDo, toDoList, setToDoList }: Props) => {
             <span className='icon'>
                 <AiOutlineDelete />
             </span>
-            <span className='icon'>
+            <span className='icon' onClick={()=>handleDone(toDo.id)}>
                 <MdDoneOutline />
             </span>
         </div>
