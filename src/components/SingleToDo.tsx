@@ -3,7 +3,8 @@ import { ToDo } from '../model';
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { MdDoneOutline } from "react-icons/md";
 import './styles.css';
-import ToDoListCard from './ToDoListCard';
+//import ToDoListCard from './ToDoListCard';
+
 type Props = {
     toDo: ToDo;
     toDoList: ToDo[];
@@ -12,7 +13,13 @@ type Props = {
 
 const SingleToDo = ({ toDo, toDoList, setToDoList }: Props) => {
     const handleDone = (id: number) => {
-        setToDoList(toDoList.map((toDo)=>toDo.id===id?{...toDo, isDone:!toDo.isDone}:toDo))
+        //map according to id and check and invert value of isDone prop
+        setToDoList(toDoList.map((toDo)=>toDo.id===id?{...toDo, isDone:!toDo.isDone}:toDo));
+    };
+
+    const handleDelete = (id:number) => {
+        //return everything but the matching id item, henceby "deleting"
+        setToDoList(toDoList.filter((toDo) => toDo.id !== id));
     };
 
   return (
@@ -29,7 +36,7 @@ const SingleToDo = ({ toDo, toDoList, setToDoList }: Props) => {
             <span className='icon'>
                 <AiOutlineEdit />
             </span>
-            <span className='icon'>
+            <span className='icon' onClick={() => handleDelete(toDo.id)}>
                 <AiOutlineDelete />
             </span>
             <span className='icon' onClick={()=>handleDone(toDo.id)}>
