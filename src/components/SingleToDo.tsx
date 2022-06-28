@@ -2,6 +2,7 @@ import React from 'react'
 import { ToDo } from '../model';
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { MdDoneOutline } from "react-icons/md";
+import './styles.css';
 type Props = {
     toDo: ToDo;
     toDoList: ToDo[];
