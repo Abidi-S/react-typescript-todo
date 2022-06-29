@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { ToDo } from '../model';
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { MdDoneOutline } from "react-icons/md";
@@ -12,6 +12,9 @@ type Props = {
 }
 
 const SingleToDo = ({ toDo, toDoList, setToDoList }: Props) => {
+    const [edit, setEdit] = useState<boolean>(false);
+    const [editToDo, setEditToDo] = useState<string>(toDo.toDo)
+
     const handleDone = (id: number) => {
         //map according to id and check and invert value of isDone prop
         setToDoList(toDoList.map((toDo)=>toDo.id===id?{...toDo, isDone:!toDo.isDone}:toDo));
@@ -22,10 +25,23 @@ const SingleToDo = ({ toDo, toDoList, setToDoList }: Props) => {
         setToDoList(toDoList.filter((toDo) => toDo.id !== id));
     };
 
+    const handleEdit = (e: React.FormEvent, id: number) => {
+        e.preventDefault();
+
+        setToDoList(toDoList.map((toDo) => (toDo.id===id?{...toDo, toDo:editToDo}:toDo)));
+        setEdit(false);
+    };
+
+
   return (
-    <form className="toDoList_single">
+    <form className="toDoList_single" onSubmit={(e)=>handleEdit(e, toDo.id)}>
         {
-            toDo.isDone ? (
+            edit ? (
+                <input
+                    value={editToDo}
+                    onChange={(e) => setEditToDo(e.target.value)}
+                    className="todos_single-text"/>
+            ): toDo.isDone ? (
                 <s className="toDoList_single-text">{toDo.toDo}</s>
             ) : (
                 <span className="toDoList_single-text">{toDo.toDo}</span>
@@ -33,7 +49,12 @@ const SingleToDo = ({ toDo, toDoList, setToDoList }: Props) => {
         }
 
         <div>
-            <span className='icon'>
+            <span className='icon' onClick={() => {
+                //don't really understand the line below
+                if(!edit && !toDo.isDone){
+                    setEdit(!edit)
+                }
+            }}>
                 <AiOutlineEdit />
             </span>
             <span className='icon' onClick={() => handleDelete(toDo.id)}>
