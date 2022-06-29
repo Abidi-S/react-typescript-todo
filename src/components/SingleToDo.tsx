@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ToDo } from '../model';
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { MdDoneOutline } from "react-icons/md";
@@ -32,12 +32,20 @@ const SingleToDo = ({ toDo, toDoList, setToDoList }: Props) => {
         setEdit(false);
     };
 
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    //don't completely understand this
+    useEffect(() => {
+        inputRef.current?.focus()
+    }, [edit]);
+
 
   return (
     <form className="toDoList_single" onSubmit={(e)=>handleEdit(e, toDo.id)}>
         {
             edit ? (
                 <input
+                    ref={inputRef}
                     value={editToDo}
                     onChange={(e) => setEditToDo(e.target.value)}
                     className="todos_single-text"/>
