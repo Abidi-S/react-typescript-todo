@@ -9,7 +9,37 @@ interface Props{
 }
 const ToDoListCard = ({ toDoList, setToDoList}: Props) => {
   return (
-    <div className="toDoList">
+    <div className="container">
+
+      <div className="toDoList">
+        <span className="toDoList_heading">
+          Active Tasks
+        </span>
+        {toDoList.map(toDo => (
+          <SingleToDo
+            toDo={toDo}
+            key={toDo.id}
+            toDoList={toDoList}
+            setToDoList={setToDoList}
+          />
+        ))}
+      </div>
+
+      <div className='toDoList remove'>
+        <span className="toDoList_heading">
+          Completed Tasks
+        </span>
+        {toDoList.map(toDo => (
+          <SingleToDo
+            toDo={toDo}
+            key={toDo.id}
+            toDoList={toDoList}
+            setToDoList={setToDoList}
+          />
+        ))}
+
+      </div>
+    {/* <div className="toDoList">
         {toDoList.map(toDo => (
             <SingleToDo
                 toDo={toDo}
@@ -18,7 +48,7 @@ const ToDoListCard = ({ toDoList, setToDoList}: Props) => {
                 setToDoList={setToDoList}
             />
             //<li>{toDo.toDo}</li>
-        ))}
+        ))} */}
     </div>
   )
 }
