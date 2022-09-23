@@ -1,3 +1,5 @@
+To-do WebApp created using React and Typescript, following tutorial: https://youtu.be/FJDVKeh7RJI
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
